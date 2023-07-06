@@ -1,33 +1,32 @@
 class MinStack {
-    ArrayList<Integer> list;
+
+    private Stack<Integer> stack;
+    private Stack<Integer> minStack;
 
     public MinStack() {
-        list = new ArrayList<>();
-
+        stack = new Stack<>();
+        minStack = new Stack<>();
     }
 
     public void push(int val) {
-        list.add(val);
+        stack.push(val);
+        val = Math.min(val, minStack.isEmpty() ? val : minStack.peek());
+        minStack.push(val);
     }
 
     public void pop() {
-        list.remove(list.size() - 1);
+        stack.pop();
+        minStack.pop();
     }
 
     public int top() {
-        Object[] array = list.toArray();
-        return (int) array[array.length - 1];
-
+        return stack.peek();
     }
 
     public int getMin() {
-        Object[] array = list.toArray();
-        Arrays.sort(array);
-        return (int) array[0];
-
+        return minStack.peek();
     }
 }
-
 /**
  * Your MinStack object will be instantiated and called as such:
  * MinStack obj = new MinStack();
