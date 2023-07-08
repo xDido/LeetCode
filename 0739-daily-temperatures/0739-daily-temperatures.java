@@ -1,13 +1,17 @@
 class Solution {
     public int[] dailyTemperatures(int[] temperatures) {
         int[] result = new int[temperatures.length];
-        Stack<Integer> stack = new Stack<>();
-        for (int i = 0; i < temperatures.length; i++) {
-            while (!stack.isEmpty() && temperatures[stack.peek()] < temperatures[i]) {
-                int lastidx = stack.pop();
-                result[lastidx] = i - lastidx;
+        int hottest = 0;
+        for (int i = temperatures.length - 1; i > -1; i--) {
+            if (hottest <= temperatures[i]) {
+                hottest = temperatures[i];
+                continue;
             }
-            stack.add(i);
+            int step = 1;
+            while (temperatures[i + step] <= temperatures[i]) {
+                step += result[i + step];
+            }
+            result[i] = step;
         }
         return result;
     }
