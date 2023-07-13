@@ -1,5 +1,4 @@
 class Solution {
-    // NOT INTENDED LOW MEMORY USAGE SOLUTION
     public int characterReplacement(String s, int k) {
         int left = -1;
         int right = 1;
@@ -20,11 +19,11 @@ class Solution {
                     break;
                 }
             }
-                   int comp = right - left;
+                   int comp = (right - left);
             if (k > 0) {
                 comp = s.length() - (right - left);
                 if (comp > k)
-                    comp = right - left + k;
+                    comp = (right - left + k);
                 else
                     return s.length();
             }
