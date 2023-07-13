@@ -1,4 +1,5 @@
 class Solution {
+    // NOT INTENDED LOW MEMORY USAGE SOLUTION
     public int characterReplacement(String s, int k) {
         int left = -1;
         int right = 1;
