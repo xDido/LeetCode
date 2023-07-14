@@ -1,37 +1,18 @@
 class MyHashSet {
-    private final int SIZE = 1000;
-    private LinkedList<Integer>[] buckets;
-
+    boolean [] setArray;
     public MyHashSet() {
-        buckets = new LinkedList[SIZE];
+        setArray=new boolean[(int)1e6+1];
     }
-
-    private int hash(int key) {
-        return key % SIZE;
-    }
-
+    
     public void add(int key) {
-        int index = hash(key);
-        if (buckets[index] == null) {
-            buckets[index] = new LinkedList<>();
-        }
-        LinkedList<Integer> bucket = buckets[index];
-        if (!bucket.contains(key)) {
-            bucket.add(key);
-        }
+        setArray[key]=true;
     }
-
+    
     public void remove(int key) {
-        int index = hash(key);
-        LinkedList<Integer> bucket = buckets[index];
-        if (bucket != null) {
-            bucket.remove(Integer.valueOf(key));
-        }
+        setArray[key]=false;
     }
-
+    
     public boolean contains(int key) {
-        int index = hash(key);
-        LinkedList<Integer> bucket = buckets[index];
-        return bucket != null && bucket.contains(key);
+        return setArray[key];
     }
 }
