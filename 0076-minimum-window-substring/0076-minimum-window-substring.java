@@ -1,38 +1,36 @@
 class Solution {
+
+    //sliding window
     public String minWindow(String s, String t) {
-        int[] tMap = new int[128];
-        int[] sMap = new int[128];
-        int count = 0;
-        int minLen = Integer.MAX_VALUE;
-        String minStr = "";
+        HashMap<Character, Integer> map = new HashMap<>();
 
-        for (char c : t.toCharArray()) {
-            tMap[c]++;
+        for (char x : t.toCharArray()) {
+            map.put(x, map.getOrDefault(x, 0) + 1);
         }
 
-        int left = 0;
-        for (int right = 0; right < s.length(); right++) {
-            char c = s.charAt(right);
-            sMap[c]++;
-
-            if (sMap[c] <= tMap[c]) {
-                count++;
+        int matched = 0;
+        int start = 0;
+        int minLen = s.length() + 1;
+        int subStr = 0;
+        for (int endWindow = 0; endWindow < s.length(); endWindow++) {
+            char right = s.charAt(endWindow);
+            if (map.containsKey(right)) {
+                map.put(right, map.get(right) - 1);
+                if (map.get(right) == 0) matched++;
             }
 
-            while (count == t.length()) {
-                if (right - left + 1 < minLen) {
-                    minLen = right - left + 1;
-                    minStr = s.substring(left, right + 1);
+            while (matched == map.size()) {
+                if (minLen > endWindow - start + 1) {
+                    minLen = endWindow - start + 1;
+                    subStr = start;
                 }
-
-                char c1 = s.charAt(left);
-                sMap[c1]--;
-                if (sMap[c1] < tMap[c1]) {
-                    count--;
+                char deleted = s.charAt(start++);
+                if (map.containsKey(deleted)) {
+                    if (map.get(deleted) == 0) matched--;
+                    map.put(deleted, map.get(deleted) + 1);
                 }
-                left++;
             }
         }
-        return minStr;
+        return minLen > s.length() ? "" : s.substring(subStr, subStr + minLen);
     }
 }
