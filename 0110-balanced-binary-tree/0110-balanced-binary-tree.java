@@ -20,21 +20,21 @@ class Solution {
     
     private int checkBalance(TreeNode node) {
         if (node == null) {
-            return 0; // Base case: Height of an empty tree is 0.
+            return 0; 
         }
         
         int leftHeight = checkBalance(node.left);
         if (leftHeight == -1) {
-            return -1; // Left subtree is unbalanced
+            return -1; 
         }
         
         int rightHeight = checkBalance(node.right);
         if (rightHeight == -1) {
-            return -1; // Right subtree is unbalanced
+            return -1; 
         }
         
         if (Math.abs(leftHeight - rightHeight) > 1) {
-            return -1; // Tree is unbalanced
+            return -1; 
         }
         
         return Math.max(leftHeight, rightHeight) + 1;
